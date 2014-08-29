@@ -1,0 +1,1152 @@
+$1
+A bean developer writes a stateless session bean FooEJB with the following
+asynchronous business method:
+@Asynchronous
+public Future<Integer> fooAsync () {
+System.out.printIn ("begin"); int i = 1; System.out.print("end");
+Return new AsyncResult<Integer> (i);
+}
+Given the following code, where fooRef is an EJB reference to fooEJB:
+Future<Integer> fooFuture = fooref.fooAsync();
+fooFuture.cancel (true);
+Which two represents possible system output after all processing has completed?
+(Choose two)
+A. Begin end
+B. Begin
+C. End
+D. 1
+E. <no output>
+
+Answer:
+$$
+
+$2
+Given two stateless session beans, ABean and BBean:
+
+Ver: Figura 01
+
+A client that is not executing within a transaction acquires an EJB reference 
+to ABean and invokes the a() method on time. How many distinct transactions 
+are started by the container after all processing has completed?
+
+A. 0
+B. 1
+C. 2
+D. 3
+
+Answer:
+$$
+
+$3
+Given this code snippet from a JMS message driven bean class X:
+
+Ver: Figura 02
+
+When this bean class handles a message, which is correct?
+
+A. After a message delivery the result is 1.
+B. After a message delivery the result is 2.
+C. After a message delivery the result is 12.
+D. After a message delivery an exception is thrown.
+E. After a message delivery the result is unpredictable.
+F. This is NOT a compliant JMS message-driven bean.
+
+Answer:
+$$
+
+$4
+Which statement about message-driven beans is correct?
+
+A. Each message-driven bean instance will be invoked by only one thread 
+at a time.
+B. When dispatching messages to message beam instances the container must
+preserve the order in which messages arrive.
+C. If a message-driven bean is associated with a JMS queue,each bean instance 
+in the pool will receive each message sent to the queue.
+D. If a message driven bean is associated with a JMS durable subscription,
+each bean instance in the pool will receive each message sent to the 
+durable subscription.
+
+Answer:
+$$
+
+$5
+Given code snippets from two files:
+
+Ver: Figura 03
+
+Which four code changes, when used together, create a valid JMS message-driven
+bean? (Choose four)
+
+A. Make class MessageDog public 
+B. Make the MessageDog constructor no-arg 
+C. Make the MessageDog constructor public
+D. Move the onMessage method to class MessageDog. 
+E. Change MessageDog so that it is NOT a subclass of Dog.
+F. Make class MessageDog implement MessageListner instead of 
+MessageDrivenBean.
+
+Answer:
+$$
+
+$6
+Which is a valid Postconstruct method in a message-driven bean class?
+
+A. @PostConstruct
+public boolean init() { return true; }
+B. @PostConstruct private static void init () {}
+C. @PostConstruct private void init ()
+D. @PostConstruct public static void init () {}
+
+Answer:
+$$
+
+$7
+Which statement is correct about a Java EE client of a message driven bean?
+
+A. The client can use JNDI to obtain a reference to a message destination.
+B. The client can use JNDI to obtain a reference to a dependency injection.
+C. The client can use JNDI to obtain a reference to a message-driven 
+bean instance.
+D. The client can use JNDI to look up a reference to the message-driven 
+bean's home interface.
+
+Answer:
+$$
+
+$8
+You are writing an EE component that functions as a message producer. 
+The message producer sends message to a JMS queue. The component environment 
+defines a resource-ref of type javax.jms.ConnectionFactory with the same
+jms/ConnectionFactory.
+Which will correctly obtain a connection factory for a queue?
+
+A. Context context = new initialContext();
+Connectionfactory confac = (ConnectionFactory) Context.lookup
+("java: comp/env/jms/ConnectionFactory");
+B. InitialContext Context = new Context () ;
+QueueConnectionFactory confac = (QueueConnectionFactory) context.lookup
+("java: comp/env/jms/Myfactory");
+C. @Resource ("ConnectionFactory")
+private static QueueConnectionFactory confac;
+D. @Resource (loopkup = "jms/QueueConnectionFactory")
+private static ConnectionFactory confac;
+
+Answer:
+$$
+
+$9
+You are writing a client that sends a message to a JMS queue. Which 
+statement is true?
+
+A. You use a connection factory to create a session.
+B. When you create a session,you specify whether or not it is transacted.
+C. When you create a connection,you specify the acknowledgment mode.
+D. When you create a message producer,you must specify the name of 
+the destination
+to which you will send messages.
+
+Answer:
+$$
+
+$10
+Which two are true about the client view of a message-driven bean? 
+(Choose two.)
+
+A. References to message destinations can be infected.
+B. References to message destinations cannot be looked up in the client's JNDI
+namespace.
+C. Clients of a message destination need to know that the destination is 
+listened to by a pool of message consumers,
+D. Clients of a message destination do NOT need to know that the destination 
+is listened to by a message-driven bean.
+
+Answer:
+$$
+
+$11
+Given the following stateful bean:
+10. @Stateful
+11. @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+12. public class VideoBean implements video {
+13. / / insert code here
+14. public void method () {}
+15. }
+Assuming no other transaction-related metadata, which code can be added at 
+line 13 to guarantee that business method methodA will execute only if 
+invoked with an active transaction?
+A. @TransactionAttribute ()
+B. @tran sactionmanagement(TransactionAttributeType.CONTAINER)
+C. @TransactionAttribute(transactionAttributeType.MANDATORY)
+D. @transactionAttribute(TransactionattributeType.RECQUIRES_NEW)
+
+Answer:
+$$
+
+$12
+Given the stateful session bean:
+
+Ver: Figura 04
+
+Assuming no other transaction-related metadata, which is true?
+
+A. methodB and methodC have transaction attribute SUPPORTS,which methodD has
+transaction attribute REQUIRED.
+B. methodA and methodC have transaction attribute REQUIRES_NEW,while
+methodB has transaction attribute SUPPORTS.
+C. methodC,methodD,and methodA have transaction attribute REQUIRED,and
+methodB has transaction attribute SUPPORTS.
+D. methodB has transaction attribute SUPPORTS,methodD has transaction 
+attribute REQUIRED,and methodA and methodC have transaction attribute
+REQUIRES_NEW.
+
+Answer:
+$$
+
+$13
+Given a set of CMT bean methods with the following transaction attributes:
+Method M1 = SUPPORTS
+Method M2 = REQUIRED
+Method M3 = NOT_SUPPORTED
+Method M4 = REQUIRES NEW
+And the following method invocation sequence:
+Method Ml invokes Method M2
+Method M2 invokes Method M3
+Method M1 invokes Method M4
+
+If Method Ml is invoked by a method that does NOT have a transaction context,
+which describes a possible scenario?
+
+A. Method M1: no transaction Method M2: new transaction Method M3: no
+transaction Method M4: new transaction 
+B. Method M1: no transaction
+Method M2: Container throws EJBTransactionRequiredException
+C. Method M1: new transaction
+Method M2: runs in same transaction as M1
+Method M3: Container throws TransactionNotSupportedException
+D. Method M1: no transaction
+Method M2: new transaction
+Method M3: Container throws TransactionNotSupportedException
+
+
+Answer:
+$$
+
+$14
+A stateful session bean needs to restore its conversational state to its 
+initial state if the transaction in which the bean is participating rolls back. 
+Which bean method can be used to do this?
+A. SessionContext.setRollbackOnly
+B. SessionContext.getUserTransaction
+C. SessionSynchronization.afterCompletion
+D. SessionSynchrinization.beforeCompletion
+
+Answer:
+$$
+
+$15
+A developer implements a session bean which acts as a session facade for an
+application. This means that clients will only see this session bean's 
+interface which offer the application interface, where are three distinct 
+roles known at development time: "user", "admin", and "guest". 
+The majority of the methods will be used by role
+"user". All methods must have role permissions active and roles may be added 
+or changed in the future. Which two scenarios are correct? (Choose two.)
+
+A. The developer annotates the bean class with @PermitAll and annotates the
+methods used by role "guest" or "admin" individually.
+B. The developer annotates the bean class with @DenyAll and annotates the 
+methods used by role "user","guest",or "admin" individually.
+C. The developer defines individual method permissions for the methods used by
+roles "user "guest",and "admin" In the deployment descriptor.
+D. The developer annotates the bean class with @RolesAllowed("user") and
+annotates the methods used by role "guest" or "admin" individually.
+E. The developer defines a method permission with method name "*" and role 
+"user" and adds individual method permissions for the methods used by roles 
+"guest" and "admin" in the deployment descriptor.
+
+Answer:
+$$
+
+$16
+A java EE application contains a session bean which uses a security role USER. 
+A group called people is defined an LDAP server. Which two define appropriate 
+EJB role responsibilities? (Choose two.)
+A. The deployer defines and configures the LDAP realm.
+B. The system administrator defines and configures the LDAP realm.
+C. The deployer maps the application role USER to the LDAP group people.
+D. The system administrator maps the application role USER to the LDAP group
+people.
+
+Answer:
+$$
+
+$17
+An enterprise bean has security permissions set up using declarative security 
+features. Under which two conditions can a client be guaranteed to have 
+permission to Invoke <i business method on the enterprise bean? (Choose two.)
+
+A. The Application Assembler has marked the enterprise bean method 
+as unchecked.
+B. The client's principal has been assigned a security role with permission 
+to invoke the method.
+C. The Application Assembler has set the security-identity deployment 
+descriptor to run-as.
+D. The Application Assembler has mapped all security role references using 
+the rolelink element.
+
+Answer:
+$$
+
+$18
+Given a session bean defines:
+
+11. @Stateless (name = ?MrBean?)
+12. public class source SecureBean implements local business, remoteBusiness {
+
+Where LocalBusiness is a local business interface and RemoteBusines is a 
+remote business interface.
+The following deployment descriptor entries represent the only 
+security-related metadata:
+
+Ver: Figura 05
+
+Which is true about the security roles of clients MrBean?
+A. Only LocalBusiness clients must be in role A.
+B. Only LocalBusiness clients must be in role B.
+C. Both LocalBusiness and RemoteBusiness Clients must be in role A.
+D. Both LocalBusiness and RemoteBusiness clients must NOT be in role A.
+
+Answer:
+$$
+
+$19
+Suppose a developer wants to create an automatic persistent timer that 
+performs data validation every hour. Given the following stateless 
+session bean:
+@Stateless
+public class OrderVerificationBean {
+private void verificationExternalOrders () {
+/ / do something
+}
+}
+What is the minimum modification you would need to make to the bean to 
+create the automatic persistent timer?
+
+A. Modify the verifyExternalOrders methos to look like this:
+@Schedule
+private void verifyExternalOrders () {
+/ do something
+}
+B. Modify the verifyExternalOrders method to look like this:
+@Schedule (hour = "*")
+private void verifyExternalOrders () {
+/ / do something
+}
+C. Modify the verifyExternalOrders method to look like this:
+@Schedule (persistent = true)
+private void verifyExceptionalOrders () {
+/ / do something
+}
+D. Modify the verifyExternalOrders method to look like this:
+@Schedule (hour ="*",persistent = true)
+private void verifyExceptionalOrders () {
+/ / do something
+}
+
+Answer:
+$$
+
+$20
+A developer implements a stateless session bean as a timed object. 
+The bean contains two local business methods with the transaction attribute 
+REQUIRED.
+
+Ver: Figura 06
+
+A client begins a UserTransaction and calls the foo local business method. 
+The foo method returns five seconds later. The client rolls back the 
+transaction and then calls the bar local business method. Assuming there have 
+been no other client invocations on the stateless session bean, what is the 
+value of the size variable when control reaches Line?
+
+A. 0
+B. 1
+C. -1
+
+Answer:
+$$
+
+$21
+A developer wants to create an enterprise bean that uses the EJB Timer service.
+Which two are true? (Choose two.)
+A. Once created,a timer cannot be canceled.
+B. The bean can be used within a transaction.
+C. Once created,the timer will survive a container crash.
+D. The enterprise bean must implement the TimedObject interface.
+E. The developer can use either a message-driven bean,stateless session bean,
+or stateful session bean.
+
+Answer:
+$$
+
+$22
+Suppose developer wants to create an EJB component that performs data 
+validation every hour. Given the following Stateless session bean:
+
+Ver: Figura 07
+
+What is the minimum modification you would need to make to the bean to support
+notification from the TimerService once the timer expires?
+
+A. Modify the verify external orders method to look like this:
+@TimedOut
+private void verifyExternalOrders () {
+/ / do something
+}
+B. Modify the verify external orders method to look like this:
+@EjbTimeOut
+private void verifyExternalOrders () {
+/ / do something
+}
+C. Modify the verify external orders method to look like this:
+@ejbTimeOut
+private void verifyExternalOrders () {
+/ / do something
+}
+D. Modify the verify external orders method to look like this:
+@TimeOut
+private void verifyExternalOrders () {
+/ / do something
+}
+
+Answer:
+$$
+
+$23
+An enterprise developer needs to modify the order of interceptor method 
+execution specified by the Bean Provider, but does NOT have access to the 
+bean's source code. No deployment descriptor was provided in the EJB jar 
+delivered by the Bean Provider. Which represents the solution to this problem?
+
+A. No solution is possible under these conditions.
+B. The Deployer can add metadata annotations to the ejb-jar.
+C. The Application Assembler can add metadata annotations to the ejb-jar.
+D. The System Administrator can add interceptor binding information at
+runtime,using vendor- specific tools.
+E. The Application Assembler can add a deployment descriptor to the ejb-jar 
+that includes interceptor binding information.
+
+Answer:
+$$
+
+$24
+A developer wants to package an enterprise bean FooBean within a .war file:
+@Stateless
+public xlass FooBean {
+public void foo () {}
+}
+Which package approach is correct?
+A. / (Root)
+I – META – INF / I – acme
+I – FooBean.class
+B. / (Root) I – acme
+I – FooBean.class
+C. / (Root)
+I – WEB – INF / I – acme
+I – FooBean.class
+D. / (Root)
+I – WEB – INF / I – Classes/
+I – acme
+I – FooBean.class
+
+Answer:
+$$
+
+$25
+A developer creates a stateless session bean, EmployeeServiceBean, and its 
+interface, EmployeeService. The session bean uses two annotated entity classes,
+Employee.class and Department.class. Which two package options can the 
+developer use when creating a deployable EAR? The proposed directory structure 
+is listed for each option. (Choose two)
+
+A. Emp.ear emp-ejb.jar
+META-INF/persistence.xml EmployeeService.class EmployeeServiceBean.class
+lib/emp-classes.jar Employee.class Department.class
+B. Emp.ear
+META-INF/orm.xml EmployeeService.class EmployeeServiceBean.class
+Employee.class Department.class
+C. Emp.ear emp-ejb.jar
+META-INF/persistence.cml Employee.class Department.class EmployeeService.class
+EmployeeServiceBean.class
+D. Emp.ear
+emp-ejb.jar persistence.xml
+Employee.class Department.class EmployeeService.class EmployeeServiceBean.class
+
+Answer:
+$$
+
+$26
+Assume you have been tasked with building an ejb-jar containing an EJB 
+application. The EJB application contains local, remote, and web service 
+and-point EJBs that provide reusable services within an enterprise. When the 
+application is deployed clients will access the remote session beans using the 
+global JNDI name java/:ServiceLayer / <bean_name>. All of the EJBs are 
+located in the com.acme.servicelayer package and are deployed as class files. 
+The application uses a maximum of deployment descriptor and annotation 
+configuration?
+
+A. Name the jar servicelayer.jar with the following structure:
+/ (Root)
+I – META – INF /
+I – MANIFEST.MF I – classes/
+I – com/
+I – acme/
+I – servicelayer /
+<list of classes>
+B. Name the jar servicelayer.jar with the following structure:
+/ (Root)
+I – META – INF/
+I – MANIFEST.MF I – ejb – jar.xml
+I – classes/ I – com/
+I – acme /
+I – servicelayer/
+<list of classes>
+C. Name the jar servicelayer.jar with the following structure:
+/(Root)
+I – META – INF / I – ejb – jar.xml
+I – com/
+I – acme/
+I – servicelayer/
+<list of classes>
+D. Name the jar servicelayer.jar with the following structure:
+/ (Root)
+I – META – INF/
+I – MANIFEST.MF I – ejb-jar.xml
+I – com/
+I – servicelayer/
+<list of classes>
+
+Answer:
+$$
+
+$27
+A developer writes a stateful session bean with local business interface Bar
+containing method test. Method test is implemented as:
+11. @Remove
+12. public void test () {}
+A business method in a stateless session bean invokes a reference to bean Bar 
+as follows:
+11. @EJB Bar bar;
+12.
+13. public void foo () {
+14. bar.test ();
+15. bar.test();
+16. }
+Assuming execution reaches Line 15, what is the expected result?
+
+A. Method foo returns without error.
+B. A javax.ejb.NoSuchEJBException is thrown.
+C. A java.rmi.NoSuchObjectException is thrown.
+D. A javax.ejb.NoSuchEntityException is thrown.
+
+Answer:
+$$
+
+$28
+MyMsg is a JMS message-driven bean with container-managed transaction
+demarcation. FooBean is an EJB 3.x stateless session bean that sends message 
+to the JMS destination with MyMsgBean is associated. MyMsgBean’s message 
+listener method has transaction attribute REQUIRED, and is defined as follows:
+10. public class MyMsgBean implements javax.jms.messageListener {
+11. public void onMessage(javax.jms.Message message) {
+12. / / do some work not shown here
+13. thrown new RuntimeException("unexpected error . . . ");
+14. }
+Which statement is true about the result of message processing?
+
+A. FooBean receives javax.ejb.EJBException.
+B. The container discards the MyMsgBean bean instance.
+C. FooBean receives the original RuntimeException thrown from the message 
+listener method.
+D. The container does NOT roll back the transaction,and FooBean can continue 
+the transaction.
+
+Answer:
+$$
+
+$29
+Given an JMS message-driven bean, which statement is true about its exception
+handling?
+
+A. Its message listener method must NOT throw any checked exception.
+B. Its message listener method can throw java.rmi.RemoteException.
+C. Its message listener method can throw any checked exception except
+java.rmi.RemoteException.
+D. Its message listener method can throw any checked exception that implements
+java.io.Serializable.
+
+Answer:
+$$
+
+$30
+Which is a correct way to define a runtime exception as an EJB 3.x application
+exception?
+
+A. public class MyAppException extends javax.ejb.EJBException
+B. @ApplicationException
+public class MyAppException extends javax.ejb.EJBException
+C. public class MyAppException extends javax.lang.EJBException
+D. @ApplicationException
+public class MyAppException extends javax.lang.EJBException
+
+Answer:
+$$
+
+$31
+A developer writes a stateless session bean with one local business interface 
+and with container- managed transactions. All business methods have 
+transaction attribute REQUIRED. The bean has an injected field sessionCtx of 
+the type SessionContext. Which two operations are allowed in a business method 
+of the bean? (Choose two.)
+
+A. sessionCtx.getEJBObject
+B. sessionCtx.setRollbackOnly
+C. sessionCtx.getMessageContext
+D. sessionCtx.getBusinessObject
+E. sessionCtx.getEJBLocalObject
+
+Answer:
+$$
+
+$32
+Which two are true? (Choose two.)
+
+A. J2EE runs on consumer and embedded devices.
+B. J2EE includes the MIDP API.
+C. J2EE includes servlet APIs and EJB APIs.
+D. J2EE application developers need J2SE.
+E. J2EE applications depend on web servers.
+
+Answer:
+$$
+
+$33
+Which two are associated with the web tier in a J2EE web-based application?
+(Choose two.)
+
+A. servlets
+B. JAX-RPC
+C. JMS
+D. entity beans
+E. JSP
+
+Answer:
+$$
+
+$34
+Given:
+1. class Test {
+2. public static void main(String args[]) {
+3. int num1 = 10, num2 = 20, result;
+4. result = calc(num1, num2);
+5. System.out.println(result);
+6. }
+7.
+8. // insert code here
+9. }
+Which, inserted at line 8, produces the output 30?
+
+A. static int calc(int n1,int n2) { return; }
+B. public int calc(int n1,int n2) { return n1 + n2; }
+C. public int calc(int n1,int n2) { return; }
+D. static int calc(int n1,int n2) { return n1 + n2; }
+E. static void calc(n1,n2) { return (n1 + n2); }
+F. static int calc(int n1,n2) { return n1,n2; };
+
+Answer:
+$$
+
+$35
+Given:
+1. public abstract class Wow {
+2. private int wow;
+3. public Wow(int wow) {
+4. this.wow = wow;
+5. }
+6. public void wow() { }
+7. private void wowza() { }
+8. }
+Which is true about the class Wow?
+
+A. It does NOT compile because an abstract class must have at least one 
+abstract method.
+B. It does NOT compile because an abstract class CANNOT have instance 
+variables.
+C. It compiles without error.
+D. It does NOT compile because an abstract class CANNOT have private methods.
+E. It does NOT compile because an abstract class must have a constructor with 
+no arguments.
+
+Answer:
+$$
+
+$36
+Given:
+1. class X {
+2. private Y y;
+3. public X(Y y) { this.y = y; }
+4. }
+5. class Y {
+6. private X x;
+7. public Y() { }
+8. public Y(X x) { this.x = x; }
+9. }
+The instance variable y is intended to represent the composition relationship 
+"X is composed of Y." Which code correctly maintains this meaning?
+
+A. X x1 = new X(new Y()); X x2 = new X(new Y());
+B. X xx = new X(null); Y y1 = new Y(xx);
+C. Y yy = new Y(); X x1 = new X(yy); X x2 = new X(yy);
+D. Y y1 = new Y(new X(null)); Y y2 = new Y(new X(null));
+
+Answer:
+$$
+
+$37
+Which type of J2EE component is used to store business data persistently?
+
+A. stateless session beans
+B. JavaBeans
+C. stateful session beans
+D. entity beans
+E. JavaServer Pages
+
+Answer:
+$$
+
+$38
+What is the purpose of JNDI?
+
+A. to access native code from a Java application
+B. to parse XML documents
+C. to access various directory services using a single interface
+D. to register Java Web Start applications with a web server
+
+Answer:
+$$
+
+$39
+Which two are true about HTML? (Choose two.)
+
+A. HTML can set up hypertext links between documents.
+B. HTML uses tags to structure text into headings,paragraphs,and lists.
+C. HTML is an object-oriented programming language.
+D. HTML documents CANNOT be browsed by a text editor.
+
+Answer:
+$$
+
+$40
+Given:
+4. class Example {
+5. int x = 50;
+6. int y = 100;
+7. public static void main(String args[]) {
+8. int x = 0, y = 10;
+9. Example ex = new Example();
+10. while (x < 3) {
+11. x++; y--;
+12. }
+13. System.out.println("x = " + x + " , y = " + y);
+14. }
+15. }
+What is the result?
+
+A. Compilation fails because of an error at line 8.
+B. x = 3,y = 7
+C. Compilation fails because of an error at line 11.
+D. Compilation fails because of an error at line 9.
+E. x = 53,y = 97
+F. Compilation fails because of an error at line 10.
+
+Answer:
+$$
+
+$41
+You have developed a MIDlet that runs on a Java-enabled Personal Digital 
+Assistant (PDA) device. Now, your employer has asked you to port the MIDlet 
+to run on other Java platforms. Which is true?
+
+A. The MIDlet is 100% portable across all J2ME devices.
+B. The MIDlet can run within a standard web browser.
+C. The MIDlet is guaranteed to run correctly under J2SE.
+D. The MIDlet is NOT guaranteed to run on a Java technology-enabled phone.
+
+Answer:
+$$
+
+$42
+Which statement is true?
+
+A. JMS enables an application to provide flexible,asynchronous data exchange.
+B. JMS provides interfaces to naming and directory services.
+C. The JMS API is located in the java.jms package.
+D. JMS enables an application to provide tightly coupled,distributed 
+communication.
+
+Answer:
+$$
+
+$43
+Which two are true about stateless session beans? (Choose two.)
+
+A. They are used to represent data stored in an RDBMS.
+B. They implement the JMS API.
+C. They are used to implement business logic.
+D. They CANNOT hold client state.
+
+Answer:
+$$
+
+$44
+Which two are true about javax.swing? (Choose two.)
+
+A. It includes classes for creating buttons and panels.
+B. It is used to create MIDlets.
+C. It is used to create applications that have the same user interface on 
+different platforms.
+D. It uses the native GUI components of each platform.
+
+Answer:
+$$
+
+$45
+Which two are true? (Choose two.)
+
+A. An interface CANNOT be extended by another interface.
+B. An abstract class CANNOT be extended by an abstract class.
+C. An interface can be extended by an abstract class.
+D. An abstract class can implement an interface.
+E. An abstract class can be extended by a concrete class.
+F. An abstract class can be extended by an interface.
+
+Answer:
+$$
+
+$46
+Click the Exhibit button.
+
+Ver: Figura 08
+
+Which relationships, referenced by the class names involved, are drawn using 
+valid UML notation?
+
+A. AB,AC,BD,and CD
+B. only AC,BD,and CD
+C. only AB,AC,and BD
+D. only AB and AC
+E. only BD and CD
+
+Answer:
+$$
+
+$47
+Given:
+.12. String s = "abcdefgabc";
+13. char c = s.charAt(2);
+14.
+15. if (c == 'c')
+16. s = s.replace('c', 'X');
+17. else if (c == 'b')
+18. s = s.replace('b', 'O');
+19. else
+20. s = s.replace('c', 'O');
+21. System.out.println(s);
+What is the result?
+
+A. aOcdefgabc
+B. Compilation fails.
+C. abOdefgabc
+D. abXdefgabc
+E. abOdefgabO
+F. aOcdefgaOc
+G. abXdefgabX
+
+Answer:
+$$
+
+$48
+Which package contains classes used to create data collections, such as maps 
+or queues?
+
+A. java.lang
+B. java.io
+C. java.awt
+D. java.net
+E. javax.swing
+F. java.util
+
+Answer:
+$$
+
+$49
+Given:
+1. interface A { }
+2. interface B { void b(); }
+3. interface C { public void c(); }
+4. abstract class D implements A, B, C { }
+5. class E extends D {
+6. void b() { }
+7. public void c() { }
+8. }
+Which is true?
+
+A. Compilation fails due to an error in line 6.
+B. The code compiles without error.
+C. Compilation fails due to an error in line 2.
+D. Compilation fails due to an error in line 4.
+E. Compilation fails due to an error in line 1.
+
+Answer:
+$$
+
+$50
+What type of relationship is needed to represent the relationship between 
+students and the courses they are enrolled in at a university?
+
+A. a one-to-one composition
+B. a one-to-one association
+C. a many-to-many composition
+D. a one-to-many composition
+E. a one-to-many association
+F. a many-to-many association
+
+Answer:
+$$
+
+$51
+Which two are features of JNDI? (Choose two.)
+
+A. an interface to store and retrieve named Java objects of any type
+B. an interface to search for objects using attributes
+C. a defined common set of messaging concepts and programming strategies
+D. connectivity to databases and other tabular data sources
+
+Answer:
+$$
+
+$52
+You need to create a class that maintains a customer's account balance. 
+The class must allow both credits (deposits) and debits (withdrawals) to the 
+account. Which class correctly implements this functionality?
+
+A. public class Account {
+double balance;
+public void debit(double amount) {
+amount = balance - amount;
+}
+public void credit(double amount) {
+amount = balance + amount;
+}
+B. public class Account {
+double balance;
+
+public void debit(double amount) {
+balance = balance - amount;
+}
+public void credit(double amount) {
+balance = balance + amount;
+}
+C. public class Account {
+double balance;
+balance = balance - amount;
+}
+public void credit(double amount) {
+double balance;
+balance = balance + amount;
+}
+D. public class Account {
+public void debit(double amount) {
+double balance;
+balance = balance - amount;
+}
+public void credit(double amount) {
+double balance;
+balance = balance + amount;
+}
+E. public class Account {
+double balance; public void debit() { double debit;
+balance = balance - debit;
+}
+public void credit() {
+double credit
+balance = balance + credit;
+}
+
+Answer:
+$$
+
+$53
+Which two are associated with the web tier in a multitier web-based 
+application? (Choose two.)
+
+A. generate dynamic content
+B. implement business logic
+C. process user input
+D. integrate with database systems
+E. store state persistently
+
+Answer:
+$$
+
+$54
+Click the Exhibit button.
+
+Ver: Figura 09
+
+Which correctly implements the relationships shown in the diagram?
+
+A. public class Y { private Z[] z1and2; public Y(Z[] z1and2) {
+if (z1and2 == null || z1and2.length != 2) { System.exit(1); // ERROR!
+}
+this.z1and2 = z1and2;
+}
+}
+B. public class Z {
+private Y[] y1and2;
+public Z(Y[] y1and2) {
+if (y1and2 == null || y1and2.length != 2) { System.exit(1); // ERROR!
+}
+this.y1and2 = y1and2;
+}
+}
+C. public class Z { private Y y1; private Y y2; public Z(Y y1) {
+if (y1 == null) System.exit(1); // ERROR!
+this.y1 = y1;
+}
+public Z(Y y1,Y y2) {
+this(y1);
+this.y2 = y2;
+}
+}
+D. public class Y { private Z z1; private Z z2; public Y(Z z1) {
+if (z1 == null) System.exit(1); // ERROR!
+this.z1 = z1;
+}
+public Y(Z z1,Z z2) {
+this(z1);
+this.z2 = z2;
+}
+}
+
+Answer:
+$$
+
+$55
+Which is a benefit of Swing clients?
+
+A. They can be used without a JRE on the client.
+B. They are more universally supported by browsers than thin clients.
+C. They can provide a richer graphical user interface experience than thin 
+clients.
+D. They are easier to deploy than thin clients.
+
+Answer:
+$$
+
+$56
+Given:
+1. class Test {
+2. public static void main(String args[]) {
+3. int num;
+4. num = 10;
+5. calc(num);
+6. System.out.println("num = " + num);
+7. }
+8.
+9. static void calc(int num) { 1
+0. num += 100; 11. } 12. }
+
+What is the result?
+
+A. num = 10
+B. num = 100
+C. Compilation fails because of an error at line 3.
+D. num = 110
+E. Compilation fails because of an error at line 9.
+
+Answer:
+$$
+
+$57
+Given:
+1. abstract class A {}
+2. class B {}
+3. interface C {}
+4. interface D {}
+5. // insert code here
+
+Which, inserted at line 5, results in a compilation failure?
+
+A. class E implements C {}
+B. class E extends B implements D {}
+C. class E extends A {}
+D. interface E extends C,D {}
+E. class E extends A,B {}
+F. class E implements C,D {}
+
+Answer:
+$$
+
+$58
+Why should package names in Java be unique?
+
+A. to provide the Internet location from which the package can be downloaded
+B. to programatically declare specific ownership of classes in the package
+C. to avoid class name conflicts if two development groups use the same package and
+class names
+D. to allow classes in the package to be accessed by classes outside of that package
+
+Answer:
+$$
+
+$59
+Given:
+18. String s = " abcdcba ";
+19. int x = 2;
+20. s = s.trim();
+21. if (s.length() < 8) {
+22. x = s.indexOf('c', 3);
+23. }
+24. System.out.println("x = " + x);
+
+What is the result?
+
+A. x = 5
+B. x = 3
+C. x = 6
+D. x = 4
+E. x = 2
+
+Answer:
+$$
+
+$60
+Given:
+3. int calc() {
+4. long x = 40L;
+5. int i = 30;
+6. i = x;
+7. System.out.println("result is: " + i);
+8. }
+
+What is the result of calling calc()?
+
+A. Compilation fails because of an error at line 6.
+B. Compilation fails because of an error at line 4.
+C. result is: 40
+D. result is: 30
+
+Answer:
+$$
